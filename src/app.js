@@ -22,6 +22,9 @@
     list: document.getElementById("task-list"),
     empty: document.getElementById("empty"),
     summary: document.getElementById("summary"),
+    statActive: document.getElementById("stat-active"),
+    statCompleted: document.getElementById("stat-completed"),
+    statOverdue: document.getElementById("stat-overdue"),
     search: document.getElementById("search"),
     sort: document.getElementById("sort"),
     filters: document.querySelectorAll("[data-status]"),
@@ -111,7 +114,11 @@
     el.empty.textContent = state.tasks.length ? "No tasks match the current filter." : "No tasks yet. Add one above.";
 
     const s = T.stats(state.tasks);
-    el.summary.textContent = `${s.active} active · ${s.completed} completed` + (s.overdue ? ` · ${s.overdue} overdue` : "");
+    el.summary.textContent = `${s.active} active, ${s.completed} completed, ${s.overdue} overdue`;
+    el.statActive.textContent = s.active;
+    el.statCompleted.textContent = s.completed;
+    el.statOverdue.textContent = s.overdue;
+    el.statOverdue.parentElement.classList.toggle("has-overdue", s.overdue > 0);
     el.clear.disabled = s.completed === 0;
     el.filters.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.status === state.status)));
   }

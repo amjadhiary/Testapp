@@ -3,17 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Task Manager</title>
+  <title>ISEET Task Register</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="src/styles.css" />
 </head>
 <body>
   <main class="app">
     <header class="app-header">
-      <h1>Tasks</h1>
-      <p class="summary" id="summary" aria-live="polite"></p>
+      <div class="brand-bar">
+        <img class="logo" src="assets/iseet-logo.png" alt="ISEET — Accelerating Digital Transformation" width="172" height="52" />
+      </div>
+      <div class="title-block">
+        <p class="eyebrow">Workplan · Task register</p>
+        <h1>Tasks</h1>
+        <span class="rule" aria-hidden="true"></span>
+      </div>
+      <dl class="stats" aria-label="Summary">
+        <div class="stat"><dt>Active</dt><dd id="stat-active">0</dd></div>
+        <div class="stat"><dt>Completed</dt><dd id="stat-completed">0</dd></div>
+        <div class="stat stat-overdue"><dt>Overdue</dt><dd id="stat-overdue">0</dd></div>
+      </dl>
+      <p class="sr-only" id="summary" aria-live="polite"></p>
     </header>
 
     <form id="task-form" class="task-form" autocomplete="off">
+      <p class="eyebrow form-label">New task</p>
       <label class="sr-only" for="task-title">New task</label>
       <input id="task-title" name="title" type="text" maxlength="200" placeholder="Add a task…" required />
       <label class="sr-only" for="task-priority">Priority</label>
@@ -24,7 +40,7 @@
       </select>
       <label class="sr-only" for="task-due">Due date</label>
       <input id="task-due" name="dueDate" type="date" />
-      <button type="submit" class="btn-primary">Add</button>
+      <button type="submit" class="btn-primary">Add task</button>
       <p class="form-error" id="form-error" role="alert"></p>
     </form>
 

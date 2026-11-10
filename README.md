@@ -1,4 +1,4 @@
-# Task Manager
+# ISEET Task Register
 
 A simple, dependency-free task management web app. It runs entirely in the browser and stores tasks in `localStorage`, so it needs no server, database, or build step.
 
@@ -11,7 +11,7 @@ A simple, dependency-free task management web app. It runs entirely in the brows
 - Sort by newest, due date, or priority; completed tasks always sink to the bottom
 - Overdue tasks are highlighted, and a summary shows active, completed, and overdue counts
 - Data persists across reloads and stays in sync across open browser tabs
-- Responsive layout, automatic light/dark theme, keyboard and screen-reader friendly
+- ISEET visual identity (IBM Plex type, institutional navy palette, blue-rule cards); responsive, keyboard and screen-reader friendly
 
 ## Run
 
@@ -46,7 +46,8 @@ npm test
 | `index.html` | Markup and task item template |
 | `src/tasks.js` | Pure task logic (create, update, filter, sort, stats, sanitize); shared by the browser and the tests |
 | `src/app.js` | UI layer: rendering, event handling, `localStorage` persistence |
-| `src/styles.css` | Styles, including dark mode and mobile layout |
+| `src/styles.css` | Styles based on the ISEET Design System tokens, including mobile layout |
+| `assets/iseet-logo.png` | ISEET primary logo (from the ISEET Design System) |
 | `tests/tasks.test.js` | Unit tests for the task logic (`node:test`) |
 
 ## Limitations
