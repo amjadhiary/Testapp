@@ -31,9 +31,12 @@
 
   function load() {
     try {
-      return T.sanitize(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
+      const stored = localStorage.getItem(STORAGE_KEY);
+      // Optional first-run examples (used by the hosted demo); ignored once anything is saved.
+      if (stored === null && Array.isArray(window.TASK_SEED)) return T.sanitize(window.TASK_SEED);
+      return T.sanitize(JSON.parse(stored || "[]"));
     } catch {
-      return [];
+      return Array.isArray(window.TASK_SEED) ? T.sanitize(window.TASK_SEED) : [];
     }
   }
 
@@ -136,9 +139,9 @@
     const item = e.target.closest(".task");
     if (!item) return;
     const id = item.dataset.id;
-    if (e.target.closest(".task-delete")) {
-      const task = state.tasks.find((t) => t.id === id);
-      if (confirm(`Delete "${task.title}"?`)) commit(T.deleteTask(state.tasks, id));
+    const del = e.target.closest(".task-delete");
+    if (del) {
+      if (armConfirm(del, "Confirm delete")) commit(T.deleteTask(state.tasks, id));
     } else if (e.target.closest(".task-edit")) {
       state.editingId = id;
       render();
@@ -192,8 +195,27 @@
   });
 
   el.clear.addEventListener("click", () => {
-    if (confirm("Remove all completed tasks?")) commit(T.clearCompleted(state.tasks));
+    if (armConfirm(el.clear, "Confirm clear completed")) commit(T.clearCompleted(state.tasks));
   });
+
+  /**
+   * Two-step confirmation without browser dialogs: the first click arms the button
+   * for 4 seconds and relabels it; a second click within that window returns true.
+   */
+  function armConfirm(button, armedLabel) {
+    if (button.dataset.armed === "true") return true;
+    const original = button.textContent;
+    button.dataset.armed = "true";
+    button.textContent = armedLabel;
+    button.classList.add("is-armed");
+    setTimeout(() => {
+      if (!button.isConnected) return;
+      button.dataset.armed = "false";
+      button.textContent = original;
+      button.classList.remove("is-armed");
+    }, 4000);
+    return false;
+  }
 
   // Keep multiple open tabs in sync.
   window.addEventListener("storage", (e) => {
