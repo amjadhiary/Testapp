@@ -21,6 +21,16 @@ Open `index.html` directly in a browser, or serve the folder:
 npm start        # serves on http://localhost:8080
 ```
 
+## Deploy to Replit
+
+The repository includes a `.replit` file configured for a Static Deployment (no server or build step).
+
+1. In Replit, choose **Create App → Import from GitHub** and select this repository and branch.
+2. Click **Run** to preview it in the workspace.
+3. Click **Deploy → Static**, confirm, and Replit issues a public `*.replit.app` URL.
+
+Each visitor's tasks are stored in their own browser; the deployment holds no shared data.
+
 ## Test
 
 Requires Node.js 18 or later. No dependencies to install.

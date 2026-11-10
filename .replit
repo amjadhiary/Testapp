@@ -1,0 +1,15 @@
+# Replit configuration: static site, no build step.
+entrypoint = "index.html"
+modules = ["web", "python-3.11"]
+
+# "Run" button: local preview server inside the Replit workspace.
+run = "python3 -m http.server 8080"
+
+[[ports]]
+localPort = 8080
+externalPort = 80
+
+# "Deploy" button: Static Deployment serving the repository root.
+[deployment]
+deploymentTarget = "static"
+publicDir = "/"
